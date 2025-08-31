@@ -77,22 +77,26 @@ WSGI_APPLICATION = "auth_service.wsgi.application"
 import dj_database_url
 from decouple import config
 
-# Fallback to local settings if DATABASE_URL is not set
 DATABASE_URL = config("DATABASE_URL", default=None)
 
 if DATABASE_URL:
     DATABASES = {
-        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=config("RENDER", default=False, cast=bool)
+        )
     }
 else:
+    # Fallback for local Docker
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": config("POSTGRES_DB", default="auth_service_db"),
-            "USER": config("POSTGRES_USER", default="auth_user"),
-            "PASSWORD": config("POSTGRES_PASSWORD", default="auth_password"),
-            "HOST": config("POSTGRES_HOST", default="db"),
-            "PORT": config("POSTGRES_PORT", default="5432"),
+            "NAME": config("POSTGRES_DB"),
+            "USER": config("POSTGRES_USER"),
+            "PASSWORD": config("POSTGRES_PASSWORD"),
+            "HOST": config("POSTGRES_HOST"),
+            "PORT": config("POSTGRES_PORT"),
         }
     }
 
