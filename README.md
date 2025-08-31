@@ -25,8 +25,7 @@ A Django-based authentication microservice with **PostgreSQL**, **JWT authentica
 ### 🐳 Dockerized Development
 - Full **Docker + Docker Compose** support for local dev.  
 
-### ☁️ Deployment Ready
-- Works seamlessly on **Render** with environment variables.  
+### ☁️ Deployment Ready  
 
 ### 📖 API Documentation
 - Integrated **Swagger UI** for exploring endpoints.  
@@ -48,7 +47,7 @@ A Django-based authentication microservice with **PostgreSQL**, **JWT authentica
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/bill-auth.git
+git clone https://github.com/Emilakesofficial/auth_service
 cd bill-auth
 
 ** 2. Create virtual environment (if not using Docker)
@@ -93,7 +92,6 @@ POST /api/auth/forgot-password/ – Request reset token (stored in Redis).
 
 POST /api/auth/reset-password/ – Reset password with token.
 
-GET /api/auth/me/ – Get current user profile (requires JWT).
 
 ## 📖 API Documentation
 
