@@ -165,18 +165,25 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
 }
 
-REDIS_URL = config("REDIS_URL")
-redis_client = redis.from_url(REDIS_URL, decode_response=True) 
+import os
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_URL,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+REDIS_URL = config("REDIS_URL")
+
+if REDIS_URL:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "SSL_CERT_REQS": None,  
+            },
         }
     }
-}
+else:
+    # fallback for local dev
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+
 
 CSRF_TRUSTED_ORIGINS = [
     "https://auth-service-znxh.onrender.com/",
