@@ -74,9 +74,28 @@ WSGI_APPLICATION = "auth_service.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": dj_database_url.parse(config("DATABASE_URL"))
-}
+import dj_database_url
+from decouple import config
+
+# Fallback to local settings if DATABASE_URL is not set
+DATABASE_URL = config("DATABASE_URL", default=None)
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("POSTGRES_DB", default="auth_service_db"),
+            "USER": config("POSTGRES_USER", default="auth_user"),
+            "PASSWORD": config("POSTGRES_PASSWORD", default="auth_password"),
+            "HOST": config("POSTGRES_HOST", default="db"),
+            "PORT": config("POSTGRES_PORT", default="5432"),
+        }
+    }
+
 
 
 # Password validation
