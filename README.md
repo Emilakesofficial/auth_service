@@ -95,9 +95,9 @@ POST /api/auth/reset-password/ – Reset password with token.
 
 ## 📖 API Documentation
 
-- Swagger UI: `/api/docs/`
-- ReDoc: `/api/redoc/`
-- OpenAPI Schema: `/api/docs.json`
+- Swagger UI: https://auth-service-znxh.onrender.com/api/swagger
+- ReDoc: https://auth-service-znxh.onrender.com/api/swagger/redoc/
+- OpenAPI Schema: https://auth-service-znxh.onrender.com/api/swagger/docs.json
 
 
 
