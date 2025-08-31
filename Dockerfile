@@ -22,15 +22,17 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copy project files
 COPY . .
 
-# Pre-create staticfiles directory
+# Create a non-root user
+RUN adduser --disabled-password --gecos '' appuser
+
+# Pre-create staticfiles directory and give ownership to appuser
 RUN mkdir -p /app/staticfiles && chown -R appuser:appuser /app/staticfiles
 
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Create a non-root user and switch to it
-RUN adduser --disabled-password --gecos '' appuser
+# Switch to non-root user
 USER appuser
 
 # Expose port
