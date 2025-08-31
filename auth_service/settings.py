@@ -74,12 +74,11 @@ WSGI_APPLICATION = "auth_service.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-import dj_database_url
-from decouple import config
 
 DATABASE_URL = config("DATABASE_URL", default=None)
 
 if DATABASE_URL:
+    # Use Render Postgres
     DATABASES = {
         "default": dj_database_url.parse(
             DATABASE_URL,
@@ -96,11 +95,9 @@ else:
             "USER": config("POSTGRES_USER"),
             "PASSWORD": config("POSTGRES_PASSWORD"),
             "HOST": config("POSTGRES_HOST"),
-            "PORT": config("POSTGRES_PORT"),
+            "PORT": config("POSTGRES_PORT", cast=int),
         }
     }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
