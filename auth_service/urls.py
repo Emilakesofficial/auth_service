@@ -18,7 +18,7 @@ schema_view = get_schema_view(
 
 
 def home(request):
-    return HttpResponse("Hello from Adekunle,\n i'm more than just a junior dev, i'm always ready to learn and i'm a fast learning,\n You should to hire me ")
+    return HttpResponse("Hello from Adekunle, You should to hire me ")
 
 urlpatterns = [
     path("", home),
