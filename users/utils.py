@@ -10,7 +10,7 @@ def generate_reset_token(email: str) -> str:
     token = str(uuid.uuid4())
     key = f"reset_token:{token}"
     data = {"command": "SET", "key": key, "value": email.lower().strip(), "ex": 600}
-    response = requests.post(f"{UPSTASH_URL}/," json=data, headers=HEADERS)
+    response = requests.post(f"{UPSTASH_URL}/", json=data, headers=HEADERS)
     response.raise_for_status()
     return token
 
