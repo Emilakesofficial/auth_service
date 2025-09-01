@@ -1,25 +1,20 @@
-import requests
 import uuid
-from decouple import config
+from django.conf import settings
 
-UPSTASH_URL = config("UPSTASH_REDIS_REST_URL")
-UPSTASH_TOKEN = config("UPSTASH_REDIS_REST_TOKEN")
-HEADERS = {
-    "Authorization": f"Bearer {UPSTASH_TOKEN}",
-    "Content-Type": "application/json" 
-}
+redis_client = settings.redis_client
 
 def generate_reset_token(email: str) -> str:
     token = str(uuid.uuid4())
     key = f"reset_token:{token}"
-    data = {"command": "SET", "key": key, "value": email.lower().strip(), "ex": 600}
-    response = requests.post(f"{UPSTASH_URL}/", json=data, headers=HEADERS)
-    response.raise_for_status()
+    redis_client.setex(key, 600, email.lower().strip())  # expire in 10 minutes
     return token
 
 def verify_reset_token(token: str) -> str | None:
     key = f"reset_token:{token}"
-    data = {"command": "GET", "key": key}
-    response = requests.post(f"{UPSTASH_URL}/", json=data, headers=HEADERS)
-    response.raise_for_status()
-    return response.json().get("result")
+    email = redis_client.get(key)
+    return email
+
+def delete_reset_token(token: str) -> None:
+    """Delete token from Redis once it's used."""
+    key = f"reset_token:{token}"
+    redis_client.delete(key)

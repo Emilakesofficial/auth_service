@@ -1,7 +1,7 @@
 import os
 from decouple import config
 import dj_database_url
-from upstash_redis import Redis
+import redis
 
 from pathlib import Path
 
@@ -166,10 +166,11 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
 }
 
+# Load Redis URL from env
+REDIS_URL = config("REDIS_URL")
 
-UPSTASH_REDIS_REST_URL=config("UPSTASH_REDIS_REST_URL")
-UPSTASH_REDIS_REST_TOKEN=config("UPSTASH_REDIS_REST_TOKEN")
-
+# Create Redis client
+redis_client = redis.from_url(REDIS_URL, decode_responses=True)
 
 
 CSRF_TRUSTED_ORIGINS = [
