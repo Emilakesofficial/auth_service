@@ -1,9 +1,10 @@
 import os
 from decouple import config
 import dj_database_url
+from upstash_redis import Redis
 
 from pathlib import Path
-import redis
+
 from datetime import timedelta
 
 AUTH_USER_MODEL = "users.User"
@@ -166,11 +167,9 @@ SIMPLE_JWT = {
 }
 
 
-REDIS_URL = config("REDIS_URL")
+UPSTASH_REDIS_REST_URL=config("UPSTASH_REDIS_REST_URL")
+UPSTASH_REDIS_REST_TOKEN=config("UPSTASH_REDIS_REST_TOKEN")
 
-
-# UPSTASH_REDIS_REST_URL=config("UPSTASH_REDIS_REST_URL")
-# UPSTASH_REDIS_REST_TOKEN=config("UPSTASH_REDIS_REST_TOKEN")
 
 
 CSRF_TRUSTED_ORIGINS = [

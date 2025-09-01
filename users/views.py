@@ -4,7 +4,7 @@ from rest_framework import status
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .utils import get_redis_client, generate_reset_token, verify_reset_token
+from .utils import generate_reset_token, verify_reset_token
 
 
 
@@ -125,8 +125,8 @@ class ResetPasswordView(APIView):
                 user.set_password(new_password)
                 user.save()
 
-                # Delete token so it can’t be reused
-                get_redis_client.delete(f"reset_token:{token}")
+                # # Delete token so it can’t be reused
+                # get_redis_client.delete(f"reset_token:{token}")
 
                 return Response(
                     {"success": True, "message": "Password reset successful", "data": None, "errors": None},
