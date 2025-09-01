@@ -171,22 +171,8 @@ REDIS_URL = config("REDIS_URL")
 
 import os
 
-REDIS_URL = config("REDIS_URL")
-
-if REDIS_URL:
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": REDIS_URL,
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-                "SSL_CERT_REQS": None,  # for Upstash TLS
-            },
-        }
-    }
-else:
-    # Use in-memory cache if no Redis URL is provided
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+UPSTASH_REDIS_REST_URL=config("UPSTASH_REDIS_REST_URL")
+UPSTASH_REDIS_REST_TOKEN=config("UPSTASH_REDIS_REST_TOKEN")
 
 
 CSRF_TRUSTED_ORIGINS = [
