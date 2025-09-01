@@ -169,6 +169,10 @@ import os
 
 REDIS_URL = config("REDIS_URL")
 
+import os
+
+REDIS_URL = config("REDIS_URL")
+
 if REDIS_URL:
     CACHES = {
         "default": {
@@ -176,12 +180,12 @@ if REDIS_URL:
             "LOCATION": REDIS_URL,
             "OPTIONS": {
                 "CLIENT_CLASS": "django_redis.client.DefaultClient",
-                "SSL_CERT_REQS": None,  
+                "SSL_CERT_REQS": None,  # for Upstash TLS
             },
         }
     }
 else:
-    # fallback for local dev
+    # Use in-memory cache if no Redis URL is provided
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 
 
