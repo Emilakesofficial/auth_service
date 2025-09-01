@@ -84,13 +84,13 @@ Now visit 👉 http://localhost:8000
 ** API Endpoints
 Auth
 
-POST /api/auth/register/ – Register a new user.
+POST /api/v1/users/register/ – Register a new user.
 
-POST /api/auth/login/ – Login with email + password, returns JWT.
+POST /api/v1/users/login/ – Login with email + password, returns JWT.
 
-POST /api/auth/forgot-password/ – Request reset token (stored in Redis).
+POST /api/v1/users/forgot-password/ – Request reset token (stored in Redis).
 
-POST /api/auth/reset-password/ – Reset password with token.
+POST /api/v1/users/reset-password/ – Reset password with token.
 
 
 ## 📖 API Documentation
@@ -98,6 +98,9 @@ POST /api/auth/reset-password/ – Reset password with token.
 - Swagger UI: https://auth-service-znxh.onrender.com/api/swagger
 - ReDoc: https://auth-service-znxh.onrender.com/api/swagger/redoc/
 - OpenAPI Schema: https://auth-service-znxh.onrender.com/api/swagger/docs.json
+
+## LIVE Link
+- URL : https://auth-service-znxh.onrender.com/
 
 
 
