@@ -7,7 +7,6 @@ from rest_framework.views import APIView
 from .utils import  redis_client, generate_reset_token, verify_reset_token
 
 
-
 User = get_user_model()
 
 class UserRegistrationView(APIView):

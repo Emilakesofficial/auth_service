@@ -166,11 +166,8 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
 }
 
-# Load Redis URL from env
 REDIS_URL = config("REDIS_URL")
-
-# Create Redis client
-redis_client = redis.from_url(REDIS_URL, decode_responses=True)
+REDIS_CLIENT = redis.from_url(REDIS_URL, decode_responses=True) 
 
 
 CSRF_TRUSTED_ORIGINS = [

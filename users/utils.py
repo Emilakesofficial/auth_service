@@ -1,7 +1,7 @@
 import uuid
 from django.conf import settings
 
-redis_client = settings.redis_client
+redis_client = settings.REDIS_CLIENT
 
 def generate_reset_token(email: str) -> str:
     token = str(uuid.uuid4())
