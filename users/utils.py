@@ -4,7 +4,10 @@ from decouple import config
 
 UPSTASH_URL = config("UPSTASH_REDIS_REST_URL")
 UPSTASH_TOKEN = config("UPSTASH_REDIS_REST_TOKEN")
-HEADERS = {"Authorization": f"Bearer {UPSTASH_TOKEN}"}
+HEADERS = {
+    "Authorization": f"Bearer {UPSTASH_TOKEN}",
+    "Content-Type": "application/json" 
+}
 
 def generate_reset_token(email: str) -> str:
     token = str(uuid.uuid4())
